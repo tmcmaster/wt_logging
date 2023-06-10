@@ -9,7 +9,7 @@ class UserLog extends ChangeNotifier {
   );
 
   static final snackBarKey = Provider<GlobalKey<ScaffoldMessengerState>>(
-      (ref) => throw Exception('UserLog.snackBarKey provider needs to be overriden'));
+      (ref) => throw Exception('UserLog.snackBarKey provider needs to be overridden.'));
 
   static const levelColors = {
     Level.wtf: Colors.purple,
@@ -26,19 +26,69 @@ class UserLog extends ChangeNotifier {
 
   final _userLog = <LogMessage>[];
 
-  void error(String message, {String? error, bool snackBar = false}) =>
-      _log(message, error: error, level: Level.error, snackBar: snackBar);
+  void error(
+    String message, {
+    String? error,
+    bool snackBar = false,
+    void Function(dynamic message, [dynamic error, StackTrace? stackTrace])? log,
+  }) =>
+      _log(
+        message,
+        error: error,
+        level: Level.error,
+        snackBar: snackBar,
+        log: log,
+      );
 
-  void warn(String message, {String? error, bool snackBar = false}) =>
-      _log(message, error: error, level: Level.warning, snackBar: snackBar);
+  void warn(
+    String message, {
+    String? error,
+    bool snackBar = false,
+    void Function(dynamic message, [dynamic error, StackTrace? stackTrace])? log,
+  }) =>
+      _log(
+        message,
+        error: error,
+        level: Level.warning,
+        snackBar: snackBar,
+        log: log,
+      );
 
-  void info(String message, {String? error, bool snackBar = false}) =>
-      _log(message, error: error, level: Level.info, snackBar: snackBar);
+  void info(
+    String message, {
+    String? error,
+    bool snackBar = false,
+    void Function(dynamic message, [dynamic error, StackTrace? stackTrace])? log,
+  }) =>
+      _log(
+        message,
+        error: error,
+        level: Level.info,
+        snackBar: snackBar,
+        log: log,
+      );
 
-  void log(String message, {String? error, bool snackBar = false}) =>
-      _log(message, error: error, level: Level.debug, snackBar: snackBar);
+  void log(
+    String message, {
+    String? error,
+    bool snackBar = false,
+    void Function(dynamic message, [dynamic error, StackTrace? stackTrace])? log,
+  }) =>
+      _log(
+        message,
+        error: error,
+        level: Level.debug,
+        snackBar: snackBar,
+        log: log,
+      );
 
-  void _log(String message, {Level level = Level.info, String? error, bool snackBar = false}) {
+  void _log(
+    String message, {
+    Level level = Level.info,
+    String? error,
+    bool snackBar = false,
+    void Function(dynamic message, [dynamic error, StackTrace? stackTrace])? log,
+  }) {
     _userLog.add(LogMessage(message: message, level: level));
     if (snackBar) {
       ref.read(snackBarKey).currentState?.showSnackBar(
@@ -47,6 +97,10 @@ class UserLog extends ChangeNotifier {
               backgroundColor: levelColors[level],
             ),
           );
+    }
+
+    if (log != null) {
+      log(message, error, null);
     }
 
     notifyListeners();
