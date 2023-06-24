@@ -2,10 +2,16 @@ import 'package:logger/logger.dart';
 
 export 'package:logger/logger.dart';
 
-Logger logger(Type type, {Level level = Level.warning}) => Logger(
-      printer: CustomerColorPrinter(type.toString()),
+Logger logger(dynamic prefix, {Level level = Level.warning}) {
+  if (prefix is String || prefix is Type) {
+    return Logger(
+      printer: CustomerColorPrinter(prefix.toString()),
       level: level,
     );
+  } else {
+    throw Exception('Logging prefix can only be a String or a Type');
+  }
+}
 
 class CustomerPlainPrinter extends LogPrinter {
   final String className;
