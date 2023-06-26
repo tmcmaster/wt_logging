@@ -36,7 +36,7 @@ class UserLog extends ChangeNotifier {
         message,
         error: error,
         level: Level.error,
-        snackBar: snackBar,
+        showSnackBar: snackBar,
         log: log,
       );
 
@@ -50,7 +50,7 @@ class UserLog extends ChangeNotifier {
         message,
         error: error,
         level: Level.warning,
-        snackBar: snackBar,
+        showSnackBar: snackBar,
         log: log,
       );
 
@@ -64,7 +64,7 @@ class UserLog extends ChangeNotifier {
         message,
         error: error,
         level: Level.info,
-        snackBar: snackBar,
+        showSnackBar: snackBar,
         log: log,
       );
 
@@ -78,7 +78,7 @@ class UserLog extends ChangeNotifier {
         message,
         error: error,
         level: Level.debug,
-        snackBar: snackBar,
+        showSnackBar: snackBar,
         log: log,
       );
 
@@ -86,17 +86,12 @@ class UserLog extends ChangeNotifier {
     String message, {
     Level level = Level.info,
     String? error,
-    bool snackBar = false,
+    bool showSnackBar = false,
     void Function(dynamic message, [dynamic error, StackTrace? stackTrace])? log,
   }) {
     _userLog.add(LogMessage(message: message, level: level));
-    if (snackBar) {
-      ref.read(snackBarKey).currentState?.showSnackBar(
-            SnackBar(
-              content: Text(message),
-              backgroundColor: levelColors[level],
-            ),
-          );
+    if (showSnackBar) {
+      snackBar(message, level: level);
     }
 
     if (log != null) {
@@ -104,6 +99,18 @@ class UserLog extends ChangeNotifier {
     }
 
     notifyListeners();
+  }
+
+  void snackBar(
+    dynamic message, {
+    Level level = Level.info,
+  }) {
+    ref.read(snackBarKey).currentState?.showSnackBar(
+          SnackBar(
+            content: Text(message),
+            backgroundColor: levelColors[level],
+          ),
+        );
   }
 
   List<LogMessage> getErrors() {
