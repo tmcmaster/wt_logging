@@ -1,5 +1,5 @@
 name: wt_logging
-description: A new Flutter package project.
+description: Component to manage logging, user logs and SnackBar messages.
 version: 0.0.1
 homepage: https://github.com/tmcmaster/wt_logging
 publish_to: 'none'
