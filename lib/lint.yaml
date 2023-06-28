@@ -1,13 +1,16 @@
 include: package:lint/analysis_options.yaml
+
+# https://dart.dev/guides/language/analysis-options
 linter:
   rules:
     - prefer_single_quotes
+
+# https://dart-lang.github.io/linter/lints/index.html.
 analyzer:
   exclude:
     - '**/*.freezed.dart'
     - '**/*.g.dart'
     - '**/*.mocks.dart'
-    - 'lib/firebase_options.dart'
-    - packages/poc_stuff
+    - '**/firebase_options.dart'
     - junk/
     - hold/
