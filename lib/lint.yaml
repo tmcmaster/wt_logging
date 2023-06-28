@@ -7,6 +7,7 @@ analyzer:
     - '**/*.freezed.dart'
     - '**/*.g.dart'
     - '**/*.mocks.dart'
+    - 'lib/firebase_options.dart'
     - packages/poc_stuff
     - junk/
     - hold/
