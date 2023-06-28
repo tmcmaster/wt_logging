@@ -2,17 +2,17 @@ name: wt_logging
 description: Component to manage logging, user logs and SnackBar messages.
 version: 0.0.1
 homepage: https://github.com/tmcmaster/wt_logging
-publish_to: 'none'
+publish_to: "none"
 
 environment:
-  sdk: '>=2.18.4 <3.0.0'
-  flutter: ">=1.17.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   logger:
   flutter_riverpod:
+  lint:
 
 dev_dependencies:
   flutter_test:

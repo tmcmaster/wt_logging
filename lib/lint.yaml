@@ -1,0 +1,12 @@
+include: package:lint/analysis_options.yaml
+linter:
+  rules:
+    - prefer_single_quotes
+analyzer:
+  exclude:
+    - '**/*.freezed.dart'
+    - '**/*.g.dart'
+    - '**/*.mocks.dart'
+    - packages/poc_stuff
+    - junk/
+    - hold/
