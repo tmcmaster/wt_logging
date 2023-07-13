@@ -3,8 +3,8 @@ include: package:lint/analysis_options.yaml
 # https://dart.dev/guides/language/analysis-options
 linter:
   rules:
-    - prefer_single_quotes: true
-    - avoid_redundant_argument_values: false
+    prefer_single_quotes: true
+    avoid_redundant_argument_values: false
 
 
 # https://dart-lang.github.io/linter/lints/index.html.
