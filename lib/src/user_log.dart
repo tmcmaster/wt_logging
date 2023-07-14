@@ -4,12 +4,14 @@ import 'package:logger/logger.dart';
 
 class UserLog extends ChangeNotifier {
   static final provider = ChangeNotifierProvider(
-    name: 'user_log',
+    name: 'UserLog',
     (ref) => UserLog._(ref),
   );
 
   static final snackBarKey = Provider<GlobalKey<ScaffoldMessengerState>>(
-      (ref) => throw Exception('UserLog.snackBarKey provider needs to be overridden.'));
+    name: 'UserLog.snackBarKey',
+    (ref) => throw Exception('UserLog.snackBarKey provider needs to be overridden.'),
+  );
 
   static const levelColors = {
     Level.wtf: Colors.purple,
