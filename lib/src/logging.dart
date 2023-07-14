@@ -2,7 +2,7 @@ import 'package:logger/logger.dart';
 
 export 'package:logger/logger.dart';
 
-Logger logger(dynamic prefix, {Level level = Level.warning}) {
+Logger logger(dynamic prefix, {Level? level}) {
   if (prefix is String || prefix is Type) {
     return Logger(
       printer: CustomerColorPrinter(prefix.toString()),
