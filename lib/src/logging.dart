@@ -6,7 +6,7 @@ Logger logger(dynamic prefix, {Level? level}) {
   if (prefix is String || prefix is Type) {
     return Logger(
       printer: CustomerColorPrinter(prefix.toString()),
-      level: level,
+      level: level ?? Level.warning,
     );
   } else {
     throw Exception('Logging prefix can only be a String or a Type');
