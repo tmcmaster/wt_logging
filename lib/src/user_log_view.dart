@@ -16,13 +16,22 @@ class UserLogView extends ConsumerWidget {
           itemCount: messages.length,
           itemBuilder: (context, index) {
             final message = messages[index].message;
+            final error = messages[index].error;
             final color = UserLog.levelColors[messages[index].level];
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 4),
-              child: Text(
-                softWrap: true,
-                message,
-                style: TextStyle(color: color),
+              child: ListTile(
+                title: Text(
+                  softWrap: true,
+                  message,
+                  style: TextStyle(color: color),
+                ),
+                subtitle: error == null
+                    ? null
+                    : Padding(
+                        padding: const EdgeInsets.only(left: 16.0),
+                        child: Text(error),
+                      ),
               ),
             );
           },

@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  another_flushbar: 1.12.30
   logger: ^1.4.0
   flutter_riverpod: ^2.3.6
   lint: ^2.1.2
