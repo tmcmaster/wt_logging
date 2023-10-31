@@ -10,7 +10,8 @@ class UserLog extends ChangeNotifier {
 
   static final snackBarKey = Provider<GlobalKey<ScaffoldMessengerState>>(
     name: 'UserLog.snackBarKey',
-    (ref) => throw Exception('UserLog.snackBarKey provider needs to be overridden.'),
+    (ref) =>
+        throw Exception('UserLog.snackBarKey provider needs to be overridden.'),
   );
 
   static const levelColors = {
@@ -31,56 +32,68 @@ class UserLog extends ChangeNotifier {
   void error(
     String message, {
     String? error,
-    bool snackBar = false,
-    void Function(dynamic message, [dynamic error, StackTrace? stackTrace])? log,
+    bool showSnackBar = false,
+    bool showDialog = false,
+    void Function(dynamic message, [dynamic error, StackTrace? stackTrace])?
+        log,
   }) =>
       _log(
         message,
         error: error,
         level: Level.error,
-        showSnackBar: snackBar,
+        showSnackBar: showSnackBar,
+        showDialog: showDialog,
         log: log,
       );
 
   void warn(
     String message, {
     String? error,
-    bool snackBar = false,
-    void Function(dynamic message, [dynamic error, StackTrace? stackTrace])? log,
+    bool showSnackBar = false,
+    bool showDialog = false,
+    void Function(dynamic message, [dynamic error, StackTrace? stackTrace])?
+        log,
   }) =>
       _log(
         message,
         error: error,
         level: Level.warning,
-        showSnackBar: snackBar,
+        showSnackBar: showSnackBar,
+        showDialog: showDialog,
         log: log,
       );
 
   void info(
     String message, {
     String? error,
-    bool snackBar = false,
-    void Function(dynamic message, [dynamic error, StackTrace? stackTrace])? log,
+    bool showSnackBar = false,
+    bool showDialog = false,
+    void Function(dynamic message, [dynamic error, StackTrace? stackTrace])?
+        log,
   }) =>
       _log(
         message,
         error: error,
         level: Level.info,
-        showSnackBar: snackBar,
+        showSnackBar: showSnackBar,
+        showDialog: showDialog,
         log: log,
       );
 
   void log(
     String message, {
     String? error,
-    bool snackBar = false,
-    void Function(dynamic message, [dynamic error, StackTrace? stackTrace])? log,
+    bool showSnackBar = false,
+    bool showDialog = false,
+    void Function(dynamic message, [dynamic error, StackTrace? stackTrace])?
+        log,
   }) =>
       _log(
         message,
         error: error,
         level: Level.debug,
-        showSnackBar: snackBar,
+        showSnackBar: showSnackBar,
+        showDialog: showDialog,
         log: log,
       );
 
@@ -89,11 +102,15 @@ class UserLog extends ChangeNotifier {
     Level level = Level.info,
     String? error,
     bool showSnackBar = false,
-    void Function(dynamic message, [dynamic error, StackTrace? stackTrace])? log,
+    bool showDialog = false,
+    void Function(dynamic message, [dynamic error, StackTrace? stackTrace])?
+        log,
   }) {
     _userLog.add(LogMessage(message: message, level: level));
     if (showSnackBar) {
       snackBar(message, level: level);
+    } else if (showDialog) {
+      dialog(message, level: level);
     }
 
     if (log != null) {
@@ -113,6 +130,39 @@ class UserLog extends ChangeNotifier {
             backgroundColor: levelColors[level],
           ),
         );
+  }
+
+  void dialog(
+    dynamic message, {
+    Level level = Level.info,
+  }) {
+    final context = ref.read(snackBarKey).currentContext;
+    if (context != null) {
+      showDialog(
+        barrierColor: level == Level.error
+            ? Colors.red
+            : level == Level.warning
+                ? Colors.orange
+                : Colors.blue,
+        barrierLabel: level == Level.error
+            ? 'Error!'
+            : level == Level.warning
+                ? 'Warning'
+                : 'FYI',
+        context: context,
+        builder: (_) => AlertDialog(
+          content: Text(message),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   List<LogMessage> getErrors() {
