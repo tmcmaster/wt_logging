@@ -1,6 +1,6 @@
 name: wt_logging
 description: Component to manage logging, user logs and SnackBar messages.
-version: 1.0.2+2
+version: 1.0.3+3
 homepage: https://github.com/tmcmaster/wt_logging
 publish_to: "none"
 

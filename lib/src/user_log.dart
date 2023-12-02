@@ -2,17 +2,12 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
+import 'package:wt_logging/src/user_log_store.dart';
 
 class UserLog extends ChangeNotifier {
   static final provider = ChangeNotifierProvider(
     name: 'UserLog',
     (ref) => UserLog._(ref),
-  );
-
-  static final snackBarKey = Provider<GlobalKey<ScaffoldMessengerState>>(
-    name: 'UserLog.snackBarKey',
-    (ref) =>
-        throw Exception('UserLog.snackBarKey provider needs to be overridden.'),
   );
 
   static const levelColors = {
@@ -132,7 +127,7 @@ class UserLog extends ChangeNotifier {
     Level level = Level.info,
     String? error,
   }) async {
-    final context = ref.read(snackBarKey).currentContext;
+    final context = ref.read(UserLogStore.navigatorKey).currentContext;
     if (context != null) {
       final theme = Theme.of(context);
       const textColor = Colors.white;
@@ -171,7 +166,7 @@ class UserLog extends ChangeNotifier {
     Level level = Level.info,
     String? error,
   }) {
-    final context = ref.read(snackBarKey).currentContext;
+    final context = ref.read(UserLogStore.navigatorKey).currentContext;
     if (context != null) {
       final theme = Theme.of(context);
       showDialog(
