@@ -165,6 +165,7 @@ class UserLog extends ChangeNotifier {
     dynamic message, {
     Level level = Level.info,
     String? error,
+    double? width = double.minPositive,
   }) {
     final context = ref.read(UserLogStore.navigatorKey).currentContext;
     if (context != null) {
@@ -183,7 +184,7 @@ class UserLog extends ChangeNotifier {
                   ? Colors.yellow
                   : Colors.blue,
           content: SizedBox(
-            width: double.minPositive,
+            width: width,
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
