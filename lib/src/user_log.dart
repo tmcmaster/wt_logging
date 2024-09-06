@@ -4,6 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:wt_logging/src/user_log_store.dart';
 
+typedef LogFunction = void Function(
+  dynamic message, {
+  DateTime? time,
+  Object? error,
+  StackTrace? stackTrace,
+});
+
 class UserLog extends ChangeNotifier {
   static final provider = ChangeNotifierProvider(
     name: 'UserLog',
@@ -21,6 +28,7 @@ class UserLog extends ChangeNotifier {
   };
 
   final Ref ref;
+
   UserLog._(this.ref);
 
   final _userLog = <LogMessage>[];
@@ -30,8 +38,7 @@ class UserLog extends ChangeNotifier {
     String? error,
     bool showSnackBar = false,
     bool showDialog = false,
-    void Function(dynamic message, [dynamic error, StackTrace? stackTrace])?
-        log,
+    LogFunction? log,
   }) =>
       _log(
         message,
@@ -47,8 +54,7 @@ class UserLog extends ChangeNotifier {
     String? error,
     bool showSnackBar = false,
     bool showDialog = false,
-    void Function(dynamic message, [dynamic error, StackTrace? stackTrace])?
-        log,
+    LogFunction? log,
   }) =>
       _log(
         message,
@@ -64,8 +70,7 @@ class UserLog extends ChangeNotifier {
     String? error,
     bool showSnackBar = false,
     bool showDialog = false,
-    void Function(dynamic message, [dynamic error, StackTrace? stackTrace])?
-        log,
+    LogFunction? log,
   }) =>
       _log(
         message,
@@ -81,8 +86,7 @@ class UserLog extends ChangeNotifier {
     String? error,
     bool showSnackBar = false,
     bool showDialog = false,
-    void Function(dynamic message, [dynamic error, StackTrace? stackTrace])?
-        log,
+    LogFunction? log,
   }) =>
       _log(
         message,
@@ -99,8 +103,7 @@ class UserLog extends ChangeNotifier {
     String? error,
     bool showSnackBar = false,
     bool showDialog = false,
-    void Function(dynamic message, [dynamic error, StackTrace? stackTrace])?
-        log,
+    LogFunction? log,
   }) {
     _userLog.add(
       LogMessage(
@@ -116,7 +119,7 @@ class UserLog extends ChangeNotifier {
     }
 
     if (log != null) {
-      log(message, error, null);
+      log(message, error: error);
     }
 
     notifyListeners();
