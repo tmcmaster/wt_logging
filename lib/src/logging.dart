@@ -32,8 +32,8 @@ class CustomerColorPrinter extends LogPrinter {
   @override
   List<String> log(LogEvent event) {
     final AnsiColor color =
-        PrettyPrinter.levelColors[event.level] ?? AnsiColor.none();
-    final emoji = PrettyPrinter.levelEmojis[event.level];
+        PrettyPrinter.defaultLevelColors[event.level] ?? AnsiColor.none();
+    final emoji = PrettyPrinter.defaultLevelEmojis[event.level];
     final message = event.message;
     return [color('$emoji : $className : $message')];
   }
