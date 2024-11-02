@@ -129,7 +129,7 @@ class UserLog extends ChangeNotifier {
     dynamic message, {
     Level level = Level.info,
     String? error,
-  }) async {
+  }) {
     final context = ref.read(UserLogStore.navigatorKey).currentContext;
     if (context != null) {
       final theme = Theme.of(context);
@@ -140,7 +140,7 @@ class UserLog extends ChangeNotifier {
       final errorStyle = theme.textTheme.bodyMedium?.copyWith(
         color: textColor,
       );
-      await Flushbar(
+      Flushbar(
         backgroundColor: level == Level.error
             ? Colors.red
             : level == Level.warning
