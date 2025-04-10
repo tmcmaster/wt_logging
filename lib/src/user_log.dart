@@ -1,7 +1,9 @@
 import 'package:another_flushbar/flushbar.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:wt_logging/src/user_log_store.dart';
 
 typedef LogFunction = void Function(
@@ -29,7 +31,18 @@ class UserLog extends ChangeNotifier {
 
   final Ref ref;
 
-  UserLog._(this.ref);
+  UserLog._(this.ref) {
+    Future.delayed(const Duration(seconds: 1), () async {
+      final userLog = ref.read(provider);
+      final info = await PackageInfo.fromPlatform();
+      const releaseMode = kReleaseMode;
+      userLog.info('Release Mode: $releaseMode');
+      userLog.log('App Name: ${info.appName}');
+      userLog.log('Package Name: ${info.packageName}');
+      userLog.log('Version: ${info.version}');
+      userLog.log('Build Number: ${info.buildNumber}');
+    });
+  }
 
   final _userLog = <LogMessage>[];
 
