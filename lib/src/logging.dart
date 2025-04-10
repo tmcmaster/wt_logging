@@ -6,7 +6,7 @@ Logger logger(dynamic prefix, {Level? level}) {
   if (prefix is String || prefix is Type) {
     return Logger(
       printer: CustomerColorPrinter(prefix.toString()),
-      level: level ?? Level.warning,
+      level: level ?? Level.info,
     );
   } else {
     throw Exception('Logging prefix can only be a String or a Type');
@@ -31,8 +31,7 @@ class CustomerColorPrinter extends LogPrinter {
 
   @override
   List<String> log(LogEvent event) {
-    final AnsiColor color =
-        PrettyPrinter.defaultLevelColors[event.level] ?? AnsiColor.none();
+    final AnsiColor color = PrettyPrinter.defaultLevelColors[event.level] ?? AnsiColor.none();
     final emoji = PrettyPrinter.defaultLevelEmojis[event.level];
     final message = event.message;
     return [color('$emoji : $className : $message')];

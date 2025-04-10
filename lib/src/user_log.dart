@@ -1,7 +1,10 @@
 import 'package:another_flushbar/flushbar.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:logger/logger.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:wt_logging/src/logging.dart';
 import 'package:wt_logging/src/user_log_store.dart';
 
 typedef LogFunction = void Function(
@@ -12,6 +15,8 @@ typedef LogFunction = void Function(
 });
 
 class UserLog extends ChangeNotifier {
+  static final consoleLog = logger(UserLog, level: Level.debug);
+
   static final provider = ChangeNotifierProvider(
     name: 'UserLog',
     (ref) => UserLog._(ref),
@@ -26,6 +31,25 @@ class UserLog extends ChangeNotifier {
     Level.verbose: Colors.yellow,
     Level.nothing: Colors.grey,
   };
+
+  static bool _appDetailsLogged = false;
+
+  static void logAppDetails(WidgetRef ref) async {
+    if (!_appDetailsLogged) {
+      _appDetailsLogged = true;
+      final userLog = ref.read(UserLog.provider);
+      final info = await PackageInfo.fromPlatform();
+      const releaseMode = kReleaseMode;
+      final logsDirectory = await getApplicationDocumentsDirectory();
+      userLog.info('Release Mode: $releaseMode', log: consoleLog.i);
+      userLog.info('App Name: ${info.appName}', log: consoleLog.i);
+      userLog.info('Package Name: ${info.packageName}', log: consoleLog.i);
+      userLog.info('Version: ${info.version}', log: consoleLog.i);
+      userLog.info('Build Number: ${info.buildNumber}', log: consoleLog.i);
+      userLog.info('Log Level: ${Logger.level}', log: consoleLog.i);
+      userLog.info('Logs Dir: $logsDirectory', log: consoleLog.i);
+    }
+  }
 
   final Ref ref;
 
