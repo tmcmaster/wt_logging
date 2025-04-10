@@ -11,9 +11,10 @@ dependencies:
   flutter:
     sdk: flutter
   another_flushbar:
-  logger:
   flutter_riverpod:
   lint:
+  logger:
+  path_provider:
 
 dev_dependencies:
   flutter_test:
