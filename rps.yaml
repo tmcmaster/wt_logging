@@ -1,0 +1,2 @@
+scripts:
+  update: flutter clean; rm pubspec.lock; dart pub update

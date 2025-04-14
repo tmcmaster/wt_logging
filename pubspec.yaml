@@ -5,7 +5,8 @@ homepage: https://github.com/tmcmaster/wt_logging
 publish_to: "none"
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: '>=3.1.0 <4.0.0'
+  flutter: '>=3.29.2'
 
 dependencies:
   flutter:
