@@ -23,7 +23,7 @@ class UserLog extends ChangeNotifier {
   );
 
   static const levelColors = {
-    Level.wtf: Colors.purple,
+    Level.trace: Colors.purple,
     Level.error: Colors.red,
     Level.warning: Colors.orange,
     Level.info: Colors.green,
