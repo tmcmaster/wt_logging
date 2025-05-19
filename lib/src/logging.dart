@@ -3,9 +3,10 @@ import 'package:logger/logger.dart';
 export 'package:logger/logger.dart';
 
 Logger logger(dynamic prefix, {Level? level}) {
+  final prefixString = prefix.toString().split('<')[0];
   if (prefix is String || prefix is Type) {
     return Logger(
-      printer: CustomerColorPrinter(prefix.toString()),
+      printer: CustomerColorPrinter(prefixString),
       level: level ?? Level.info,
     );
   } else {
