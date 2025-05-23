@@ -1,6 +1,7 @@
 name: wt_logging
 description: Component to manage logging, user logs and SnackBar messages.
 version: 1.0.3+3
+repository: https://github.com/tmcmaster/wt_logging/tree/wix_admin
 homepage: https://github.com/tmcmaster/wt_logging
 publish_to: "none"
 
