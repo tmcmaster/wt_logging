@@ -2,12 +2,14 @@ import 'package:logger/logger.dart';
 
 export 'package:logger/logger.dart';
 
+final logLevelMap = <Type, Level>{};
+
 Logger logger(dynamic prefix, {Level? level}) {
   final prefixString = prefix.toString().split('<')[0];
   if (prefix is String || prefix is Type) {
     return Logger(
       printer: CustomerColorPrinter(prefixString),
-      level: level ?? Level.info,
+      level: level ?? logLevelMap[prefix] ?? Level.warning,
     );
   } else {
     throw Exception('Logging prefix can only be a String or a Type');
