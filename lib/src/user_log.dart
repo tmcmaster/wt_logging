@@ -5,14 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:wt_logging/src/logging.dart';
+import 'package:wt_logging/src/logging_types.dart';
 import 'package:wt_logging/src/user_log_store.dart';
-
-typedef LogFunction = void Function(
-  dynamic message, {
-  DateTime? time,
-  Object? error,
-  StackTrace? stackTrace,
-});
 
 class UserLog extends ChangeNotifier {
   static final consoleLog = logger(UserLog, level: Level.debug);
